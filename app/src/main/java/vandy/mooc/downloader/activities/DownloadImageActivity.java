@@ -91,6 +91,7 @@ public class DownloadImageActivity
         // AsyncTask used to download an image in the background,
         // create an Intent that contains the path to the image file,
         // and set this as the result of the Activity.
+        Log.i("TRACE", "About to create AsynxTask");
         mDownloadTask = new AsyncTask<Uri, Void, Uri>() {
             /**
              * Perform the long-duration download operation in a
@@ -99,6 +100,7 @@ public class DownloadImageActivity
             protected Uri doInBackground(Uri ...url) {
                 // Download the image at the given url and return a Uri
                 // to its location in the local device storage.
+                Log.i("TRACE", "Within doInBackground");
                 return DownloadUtils.downloadImage
                         (DownloadImageActivity.this,
                                 url[0]);
@@ -109,11 +111,13 @@ public class DownloadImageActivity
              */
             protected void onPostExecute(Uri imagePath) {
                 // Set the result of the Activity.
+                Log.i("TRACE", "Within onPostExecute");
                 UiUtils.setActivityResult(DownloadImageActivity.this,
                         imagePath,
-                        "download failed");
+                        "download failed"); // Just in case the imagePath is empty, then this will be useful
 
                 // Stop the Activity from running.
+                Log.i("TRACE", "Within onPostExecute, about to stop DownloadImageActivity");
                 DownloadImageActivity.this.finish();
             }
         };

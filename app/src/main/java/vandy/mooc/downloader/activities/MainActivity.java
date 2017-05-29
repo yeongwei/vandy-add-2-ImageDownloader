@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -239,6 +240,7 @@ public class MainActivity
                 // which will download the image and then return the
                 // Uri for the downloaded image file via the
                 // onActivityResult() hook method.
+                Log.i("TRACE", "About to start activity with result for DownloadImageActivity");
                 startActivityForResult(intent,
                                        DOWNLOAD_IMAGE_REQUEST);
             }
@@ -252,9 +254,11 @@ public class MainActivity
      * additional data from it.
      */
     @Override
+    // AsyncTask finishes and postExecute will reach here
     protected void onActivityResult(int requestCode,
                                     int resultCode,
                                     Intent data) {
+        Log.i("TRACE", "Within onActivityResult");
         // Check if the started Activity completed successfully.
         if (resultCode == Activity.RESULT_OK) {
             // Check if the request code is what we're expecting.

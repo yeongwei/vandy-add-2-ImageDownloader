@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.IBinder;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.AccelerateInterpolator;
@@ -74,19 +75,22 @@ public class UiUtils {
     public static void setActivityResult(Activity activity,
                                          Uri pathToContent,
                                          String failureReason) {
-        if (pathToContent == null)
+        if (pathToContent == null) {
             // Indicate why the operation on the content was
             // unsuccessful or was cancelled.
+            Log.i("TRACE", "Download not successful");
             activity.setResult
-                (Activity.RESULT_CANCELED,
-                 new Intent("").putExtra("reason",
-                                         failureReason));
-        else
+                    (Activity.RESULT_CANCELED,
+                            new Intent("").putExtra("reason",
+                                    failureReason));
+        } else {
             // Set the result of the Activity to designate the path to
             // the content file resulting from a successful operation.
+            Log.i("TRACE", "Download successful");
             activity.setResult(Activity.RESULT_OK,
-                               new Intent("",
-                                          pathToContent));
+                    new Intent("",
+                            pathToContent));
+        }
     }
 
     /**
